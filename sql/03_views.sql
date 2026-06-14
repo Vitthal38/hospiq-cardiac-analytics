@@ -1,0 +1,3 @@
+-- HOSPIQ Power BI Views
+-- v_clinical_overview, v_monthly_summary, v_risk_summary
+-- Status: PENDING Phase 5

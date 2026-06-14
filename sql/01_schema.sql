@@ -1,0 +1,3 @@
+-- HOSPIQ Database Schema
+-- Star schema: dim_patient, dim_date, fact_admissions
+-- Status: PENDING Phase 4

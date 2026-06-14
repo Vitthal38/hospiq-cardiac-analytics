@@ -84,7 +84,7 @@ hospiq-cardiac-analytics/
 
 | Phase | Description | Status |
 |-------|-------------|--------|
-| 1 | Data Exploration (EDA) | ⏳ In Progress |
+| 1 | Data Exploration (EDA) | ✅ Complete |
 | 2 | Data Cleaning | ⏳ Pending |
 | 3 | AWS Infrastructure | ⏳ Pending |
 | 4 | Database Loading | ⏳ Pending |

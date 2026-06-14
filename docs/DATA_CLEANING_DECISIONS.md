@@ -17,19 +17,22 @@ _Phase 2 reference. Every decision below is grounded in the Phase 1 findings in 
 - **Decision:** Parse with both day-first and month-first, then for each row choose the parse whose (year, month) matches the `month year` column.
 - **Why:** `month year` (`Apr-17` … `Mar-19`) is unambiguous and present for every row, so it resolves which interpretation is correct.
 - **Impact:** `admission_date` is correct for season/fiscal-quarter/trend analysis and `dim_date`. (LOS itself comes from the reported `DURATION OF STAY` column, not date subtraction, so it is unaffected.)
+- **Run result (Phase 2):** 12,268 rows parsed correctly by the simple (M/D) match, **3,489 required the D/M fallback**, **0 failed**. For reference, naive `dayfirst=True` alone fails on **3,767 rows**. Calculated-vs-reported LOS mismatch was **15,738 (99.9%)**, confirming date subtraction is unreliable — reported `DURATION OF STAY` is kept authoritative. (1 discharge_date remained NaT.)
 
 ## Decision 3 — BNP Null Handling
 - **Problem:** BNP is 53.6% missing (8,441), and missingness is informative (ordered selectively for suspected heart failure).
 - **Options:** (a) drop the column; (b) drop rows (loses 8,441); (c) mean-fill; (d) median-fill.
-- **Decision:** Median-fill (470.5), and **exclude BNP from correlation/regression**.
-- **Why:** Dropping 8,441 rows destroys the dataset; mean (817.8) is skewed by extremes up to 5,000; median is robust. Keeping the column lets it contribute to risk scoring without pretending it's analysis-grade.
+- **Decision:** Median-fill (**470.50**), and **exclude BNP from correlation/regression**.
+- **Why:** Dropping the missing rows destroys the dataset; mean (817.8) is skewed by extremes up to 5,000; median is robust. Keeping the column lets it contribute to risk scoring without pretending it's analysis-grade.
+- **Run result (Phase 2):** the column also contained **640 `EMPTY` strings**; after coercion, **9,081 values total were median-filled** (8,441 raw nulls + 640 EMPTY).
 - **Impact:** Usable as a soft risk signal only; explicitly flagged as not correlation-safe.
 
 ## Decision 4 — EF Null Handling
 - **Problem:** Ejection Fraction is 9.5% missing (1,505) but clinically central (drives risk_score and mortality stratification).
 - **Options:** (a) drop rows; (b) mean-fill; (c) median-fill.
-- **Decision:** Median-fill (≈42).
+- **Decision:** Median-fill (**42.00**).
 - **Why:** 9.5% is too much to drop, EF is too important to discard, and median resists skew.
+- **Run result (Phase 2):** EF also contained **94 `EMPTY` strings**; **1,599 values total were median-filled** (1,505 raw nulls + 94 EMPTY).
 - **Impact:** EF available for all rows in `risk_score` (`ef < 40` flag) and EF-band mortality analysis; imputation noted as a caveat.
 
 ## Decision 5 — Other Lab Null Handling (HB, TLC, PLATELETS, GLUCOSE, UREA, CREATININE)
@@ -37,6 +40,7 @@ _Phase 2 reference. Every decision below is grounded in the Phase 1 findings in 
 - **Options:** (a) drop rows; (b) zero-fill; (c) median-fill after coercion.
 - **Decision:** Coerce to numeric (turning `EMPTY` → NaN), then median-fill each column independently.
 - **Why:** Zero-filling a lab value is clinically wrong (0 creatinine ≠ missing); median preserves distribution; missingness is low enough that imputation barely moves aggregates.
+- **Run result (Phase 2):** `EMPTY` strings replaced — GLUCOSE 82, PLATELETS 9, HB 4, CREATININE 4, TLC 4, UREA 3 (BNP 640 + EF 94 above = **840 total EMPTY across all labs**). Medians used and total values filled (incl. EMPTY): HB **12.40** (256), TLC **10.10** (290), PLATELETS **226.00** (294), GLUCOSE **136.00** (945), UREA **35.00** (244), CREATININE **1.00** (251).
 - **Impact:** Complete numeric columns for SQL aggregates without distorting means.
 
 ## Decision 6 — Age Outlier Handling

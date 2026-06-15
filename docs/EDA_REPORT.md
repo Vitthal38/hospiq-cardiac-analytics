@@ -29,7 +29,7 @@ Eight columns contain missing values. **BNP is the critical issue at 53.6% missi
 | CREATININE | 247 | 1.57% | 🟡 Minor |
 | UREA | 241 | 1.53% | 🟡 Minor |
 
-> Note: lab columns also contain the literal string `EMPTY` as a missing marker (e.g. BNP has 7,316 non-null cells raw, but only 6,676 are numerically valid after coercion). These must be coerced to NaN before any numeric work.
+> Note: lab columns also contain the literal string `EMPTY` as a missing marker (e.g. BNP has 7,316 non-null cells raw, but only 6,676 are numerically valid after coercion). These must be coerced to NaN before any numeric work. **Phase 2 confirmed 840 `EMPTY` strings across the 8 lab columns** (BNP 640, EF 94, GLUCOSE 82, PLATELETS 9, HB 4, TLC 4, CREATININE 4, UREA 3) — invisible to `isnull()`.
 
 Chart: `assets/screenshots/eda_01_null_analysis.png`
 
@@ -126,6 +126,8 @@ Parsing `D.O.A` / `D.O.D` with `dayfirst=True` (the assumed Indian DD/MM/YYYY co
 | LOS mismatch (calculated vs reported) | 15,734 of 15,757 |
 
 **Conclusion:** the `D.O.A` column is **not uniformly DD/MM/YYYY**. Early records are M/D/YYYY (e.g. `4/1/2017` = 1 Apr, confirmed by `month year = Apr-17`) while later records are D/M/YYYY (e.g. `31/03/2019`). A naive `dayfirst=True` mis-parses ~3,800 rows and corrupts almost every calculated LOS. **The cleaning phase must disambiguate using the reliable `month year` column, not a single dayfirst flag.** (See `DATA_CLEANING_DECISIONS.md`, Decision 2.)
+
+> **Phase 2 outcome:** the `month year`-referenced parser resolved this cleanly — **12,268 rows parsed by the simple match, 3,489 needed the day-first fallback, 0 failed.**
 
 ## 7. BNP Deep Dive
 

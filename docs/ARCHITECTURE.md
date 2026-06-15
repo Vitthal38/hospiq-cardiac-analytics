@@ -172,3 +172,12 @@ aws rds start-db-instance \
   --db-instance-identifier hospiq-db \
   --region ap-south-1
 ```
+
+## Pipeline Screenshots
+
+![Architecture Pipeline](../assets/screenshots/project_architecture_pipeline.png)
+
+## Proof of Work
+
+See [assets/screenshots/README.md](../assets/screenshots/README.md)
+for visual proof of every completed phase.

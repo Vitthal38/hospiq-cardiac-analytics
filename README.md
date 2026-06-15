@@ -87,8 +87,8 @@ hospiq-cardiac-analytics/
 | 1 | Data Exploration (EDA) | ✅ Complete |
 | 2 | Data Cleaning | ✅ Complete |
 | 3 | AWS Infrastructure | ✅ Complete |
-| 4 | Database Loading | ⏳ Pending |
-| 5 | SQL Analysis | ⏳ Pending |
+| 4 | Database Loading | ✅ Complete |
+| 5 | SQL Analysis | ✅ Complete |
 | 6 | Power BI Dashboard | ⏳ Pending |
 | 7 | Final Documentation | ⏳ Pending |
 

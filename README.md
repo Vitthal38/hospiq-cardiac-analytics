@@ -31,6 +31,42 @@ HOSPIQ is an end-to-end healthcare analytics platform built on **15,757 real car
 > HTN + CKD patients had a 47.2% mortality rate —
 > nearly 7x the hospital average of 7.01%
 
+## Dashboard Screenshots
+
+A 5-page Power BI dashboard built on the cleaned dataset — synced slicers, drill-through, and a custom tooltip page.
+
+### 1 — Clinical Overview
+![Clinical Overview](assets/screenshots/01_clinical_overview.png)
+
+### 2 — Risk Intelligence
+![Risk Intelligence](assets/screenshots/02_risk_intelligence.png)
+
+### 3 — Rural vs Urban
+![Rural vs Urban](assets/screenshots/03_rural_vs_urban.png)
+
+### 4 — Patient Cohort Detail (drill-through destination)
+![Patient Cohort Detail](assets/screenshots/04_patient_cohort_detail.png)
+
+### 5 — Condition Tooltip (custom tooltip page)
+![Condition Tooltip](assets/screenshots/05_condition_tooltip.png)
+
+## Key Findings
+
+- Cardiogenic shock mortality (47.56%) is nearly 3x higher than the next most severe condition, AKI (16.21%)
+- Rural patients carry a 7.55% mortality rate vs 6.85% urban, despite lower emergency admission rates
+- Risk score 4-5 patients show a sharp mortality spike — a non-linear pattern that flat risk models would miss
+- 69.33% of all admissions arrive via emergency route, concentrating clinical risk in that pathway
+
+## Project Status
+
+| Layer | Status | Details |
+|---|---|---|
+| AWS S3 | ✅ Complete | Raw + cleaned data stored, RDS deleted |
+| Python | ✅ Complete | 4 pipeline scripts, EDA notebook, SQL runner |
+| SQL | ✅ Complete | Star schema, 10 queries, 3 views |
+| Power BI | ✅ Complete | 5-page dashboard, drill-through, custom tooltips, DAX measures |
+| GitHub | ✅ Complete | Full documentation and screenshots |
+
 ## Tech Stack
 
 | Layer | Tool | Purpose |
@@ -39,7 +75,7 @@ HOSPIQ is an end-to-end healthcare analytics platform built on **15,757 real car
 | Processing | Python + pandas | Cleaning pipeline |
 | Database | PostgreSQL on AWS RDS | Star schema |
 | Analysis | SQL | 10 business queries |
-| Visualisation | Power BI | 3-page dashboard |
+| Visualisation | Power BI | 5-page dashboard |
 | Exploration | Jupyter Notebook | EDA |
 
 ## Project Structure
@@ -89,7 +125,7 @@ hospiq-cardiac-analytics/
 | 3 | AWS Infrastructure | ✅ Complete |
 | 4 | Database Loading | ✅ Complete |
 | 5 | SQL Analysis | ✅ Complete |
-| 6 | Power BI Dashboard | ⏳ Pending |
+| 6 | Power BI Dashboard | ✅ Complete |
 | 7 | Final Documentation | ✅ Complete |
 
 ## Dataset

@@ -1,6 +1,9 @@
 # HOSPIQ — Cardiac Patient Outcomes & Readmission Intelligence Platform
 
-**An end-to-end healthcare analytics engagement turning 15,757 real cardiac admissions into board-level clinical and operational intelligence.**
+> **An end-to-end healthcare analytics pipeline turning 15,757 real cardiac admissions into board-level clinical intelligence.**
+>
+> 📊 [Live Dashboard — Power BI Service](YOUR_POWERBI_LINK_HERE) · ✅ 15/15 data quality checks passing
+> · 📐 [Architecture](docs/architecture_diagram.png) · 📊 [Statistical Analysis](analysis/statistical_findings.md)
 
 ![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
 ![Power BI](https://img.shields.io/badge/Power%20BI-Desktop-F2C811?logo=powerbi&logoColor=black)
@@ -8,6 +11,7 @@
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-336791?logo=postgresql&logoColor=white)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 ![Last commit](https://img.shields.io/github/last-commit/Vitthal38/hospiq-cardiac-analytics)
+[![CI](https://github.com/Vitthal38/hospiq-cardiac-analytics/actions/workflows/ci.yml/badge.svg)](https://github.com/Vitthal38/hospiq-cardiac-analytics/actions/workflows/ci.yml)
 
 ---
 
@@ -78,6 +82,59 @@ graph LR
 ```
 
 The warehouse follows a **star schema**: `dim_patient` (12,244 rows), `dim_date` (730 rows), and `fact_admissions` (15,757 rows), with foreign-key integrity verified (zero orphaned rows).
+
+## Sample SQL
+
+**Condition mortality ranking** — ranks each clinical condition by its mortality rate:
+
+```sql
+SELECT
+    condition_name,
+    COUNT(*)                                         AS admissions,
+    SUM(is_expired)                                  AS deaths,
+    ROUND(100.0 * SUM(is_expired) / COUNT(*), 2)    AS mortality_pct,
+    RANK() OVER (
+        ORDER BY SUM(is_expired)::FLOAT / COUNT(*) DESC
+    )                                                AS severity_rank
+FROM (
+    SELECT
+        UNNEST(ARRAY[
+            CASE WHEN cardiogenic_shock = 1 THEN 'Cardiogenic Shock' END,
+            CASE WHEN stemi = 1             THEN 'STEMI'             END,
+            CASE WHEN ckd = 1               THEN 'CKD'               END,
+            CASE WHEN heart_failure = 1     THEN 'Heart Failure'     END,
+            CASE WHEN diabetes = 1          THEN 'Diabetes'          END,
+            CASE WHEN hypertension = 1      THEN 'Hypertension'      END
+        ]) AS condition_name,
+        is_expired
+    FROM fact_admissions
+) sub
+WHERE condition_name IS NOT NULL
+GROUP BY condition_name
+ORDER BY severity_rank;
+```
+
+**Rural vs Urban equity comparison** — four outcome KPIs by locality:
+
+```sql
+SELECT
+    p.locality,
+    COUNT(*)                                              AS admissions,
+    ROUND(100.0 * SUM(f.is_expired) / COUNT(*), 2)       AS mortality_pct,
+    ROUND(100.0 * SUM(f.is_dama)    / COUNT(*), 2)       AS dama_pct,
+    ROUND(AVG(f.los_days), 2)                            AS avg_los,
+    ROUND(
+        100.0 * SUM(
+            CASE WHEN f.admission_type = 'Emergency' THEN 1 ELSE 0 END
+        ) / COUNT(*), 2
+    )                                                    AS emergency_rate_pct
+FROM fact_admissions f
+JOIN dim_patient p ON f.mrd_no = p.mrd_no
+GROUP BY p.locality
+ORDER BY p.locality;
+```
+
+Full query set: `analysis/sql/queries.sql`
 
 ## Data Cleaning Process
 
@@ -151,9 +208,16 @@ Full exploration: [`analysis/eda_notebook.ipynb`](analysis/eda_notebook.ipynb) a
 | boto3 | 1.34 | AWS S3 integration |
 | psycopg2 / SQLAlchemy | 2.9 / 2.0 | PostgreSQL loading |
 | AWS S3 | — | Raw + processed data lake |
+| AWS Infrastructure proof | — | [docs/aws_proof/](docs/aws_proof/) |
 | AWS RDS (PostgreSQL) | 15 | Star-schema warehouse (deleted post-project → $0 billing) |
 | Power BI Desktop | — | 5-page dashboard, DAX, drill-through, custom tooltips |
 | Jupyter | — | Exploratory analysis |
+| scipy | 1.13 | Statistical tests (chi-square, ANOVA, Mann-Whitney) |
+| dbt | 1.8 | Star schema transforms, testing, lineage |
+| pytest / flake8 | — | Unit tests, CI hygiene |
+| GitHub Actions | — | CI pipeline |
+
+> RDS instance was deleted post-project to avoid billing. Console screenshots proving AWS usage are in [docs/aws_proof/](docs/aws_proof/). The cleaned CSV (`data/processed/`) remains as the live dashboard source.
 
 ## Repository Structure
 

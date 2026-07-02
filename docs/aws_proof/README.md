@@ -1,21 +1,27 @@
 # AWS Infrastructure Evidence
 
-## S3 Bucket
-File: s3_bucket_overview.png
-Shows: hospiq-cardiac-analytics bucket with raw/ and processed/ prefixes visible
+Console screenshots proving AWS was used in this project. The RDS instance was
+deleted post-project to avoid billing; the cleaned CSV in `data/processed/`
+remains as the live dashboard source.
 
-File: s3_processed_objects.png
-Shows: hdhi_admission_cleaned.csv in processed/ with file size and last modified date
+## S3 Bucket Overview
+Bucket root showing the `raw/` and `processed/` prefixes.
 
-## RDS PostgreSQL
-File: rds_instance.png
-Shows: hospiq-db RDS instance (PostgreSQL 15, db.t3.micro free tier)
-Note: Instance deleted post-project to avoid billing. Screenshot taken before deletion.
+![S3 bucket overview](s3_bucket_overview.png)
+
+## S3 — Processed Zone
+`processed/hdhi_admission_cleaned.csv` (~3.3 MB) — the cleaned dataset.
+
+![S3 processed objects](s3_processed_objects.png)
+
+## S3 — Raw Zone
+`raw/` folder holding the 4 original source CSVs.
+
+![S3 raw objects](s3_raw_objects.png)
 
 ## How AWS was used
-- Raw CSV uploaded to S3 raw/ via pipeline/01_extract_load.py (boto3)
-- Cleaned CSV uploaded to S3 processed/ via pipeline/02_clean_transform.py
-- Star schema loaded to RDS PostgreSQL via pipeline/03_load_postgres.py (psycopg2)
-- Power BI connected to RDS via PostgreSQL connector (DirectQuery mode)
-- RDS deleted after the dashboard was published to Power BI Service to eliminate
-  ongoing billing (~$15/month free tier cap)
+- Raw CSVs uploaded to S3 `raw/` via `pipeline/01_extract_load.py` (boto3)
+- Cleaned CSV uploaded to S3 `processed/` via `pipeline/02_clean_transform.py`
+- Star schema loaded to RDS PostgreSQL via `pipeline/03_load_postgres.py` (psycopg2)
+- Power BI connected to RDS via the PostgreSQL connector
+- RDS deleted after analysis to eliminate ongoing billing; S3 retained as the persistent source

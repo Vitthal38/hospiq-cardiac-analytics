@@ -1,9 +1,17 @@
+# Environment / credentials
 .env
-*.csv
+
+# Power BI working file (large binary — shared on request)
+*.pbix
+
+# Raw source data (re-downloadable from Kaggle)
+data/raw/
+
+# Python
 __pycache__/
 *.pyc
-.DS_Store
 venv/
-*.pbix
 .ipynb_checkpoints/
-data/
+
+# OS
+.DS_Store

@@ -121,8 +121,8 @@ def cell(col, value):
 
 
 def run_schema(conn):
-    logger.info("Creating schema from sql/01_schema.sql ...")
-    with conn.cursor() as cur, open("sql/01_schema.sql", encoding="utf-8") as f:
+    logger.info("Creating schema from analysis/sql/schema.sql ...")
+    with conn.cursor() as cur, open("analysis/sql/schema.sql", encoding="utf-8") as f:
         cur.execute(f.read())
     conn.commit()
     logger.info("Schema created: dim_patient, dim_date, fact_admissions")

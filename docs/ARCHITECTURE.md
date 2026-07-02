@@ -175,9 +175,9 @@ aws rds start-db-instance \
 
 ## Pipeline Screenshots
 
-![Architecture Pipeline](../assets/screenshots/project_architecture_pipeline.png)
+![Architecture Pipeline](architecture_diagram.png)
 
 ## Proof of Work
 
-See [assets/screenshots/README.md](../assets/screenshots/README.md)
+See [screenshots/README.md](../screenshots/README.md)
 for visual proof of every completed phase.

@@ -20,7 +20,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 load_dotenv()
 
-SQL_FILE = os.path.join("sql", "02_analysis_queries.sql")
+SQL_FILE = os.path.join("analysis", "sql", "queries.sql")
 OUT_MD = os.path.join("docs", "BUSINESS_INSIGHTS.md")
 
 

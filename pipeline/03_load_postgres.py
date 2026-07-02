@@ -15,7 +15,6 @@ from pathlib import Path
 import logging
 
 import pandas as pd
-import numpy as np
 import psycopg2
 from psycopg2.extras import execute_values
 import boto3

@@ -18,12 +18,12 @@ import sys
 from pathlib import Path
 
 import pandas as pd
-import numpy as np
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 import boto3
 from dotenv import load_dotenv
+
+import matplotlib
+matplotlib.use("Agg")  # headless backend — must be set before pyplot import
+import matplotlib.pyplot as plt  # noqa: E402
 
 sys.stdout.reconfigure(encoding="utf-8")
 load_dotenv()
@@ -102,19 +102,24 @@ def chart_numeric_distributions(df):
     axes[0].axvline(age.mean(), color="red", linestyle="--", label=f"Mean: {age.mean():.1f}")
     axes[0].axvline(age.median(), color="orange", linestyle="--", label=f"Median: {age.median():.1f}")
     axes[0].set_title("Patient Age Distribution")
-    axes[0].set_xlabel("Age (years)"); axes[0].set_ylabel("Count"); axes[0].legend()
+    axes[0].set_xlabel("Age (years)")
+    axes[0].set_ylabel("Count")
+    axes[0].legend()
 
     los_capped = los[los <= 30]
     axes[1].hist(los_capped, bins=30, color="#2DC653", edgecolor="white")
     axes[1].set_title("Length of Stay (capped at 30 days)")
-    axes[1].set_xlabel("Days"); axes[1].set_ylabel("Count")
+    axes[1].set_xlabel("Days")
+    axes[1].set_ylabel("Count")
     axes[1].text(0.7, 0.9, f"Max: {los.max():.0f} days\n{(los > 30).sum()} records > 30d",
                  transform=axes[1].transAxes, bbox=dict(boxstyle="round", facecolor="wheat"))
 
     axes[2].hist(ef, bins=20, color="#F5A623", edgecolor="white")
     axes[2].axvline(40, color="red", linestyle="--", label="EF < 40% = High Risk")
     axes[2].set_title("Ejection Fraction Distribution")
-    axes[2].set_xlabel("EF %"); axes[2].set_ylabel("Count"); axes[2].legend()
+    axes[2].set_xlabel("EF %")
+    axes[2].set_ylabel("Count")
+    axes[2].legend()
 
     plt.suptitle("Key Numeric Variable Distributions — HDHI Dataset", fontsize=14, fontweight="bold")
     plt.tight_layout()

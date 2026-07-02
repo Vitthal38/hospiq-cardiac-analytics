@@ -45,7 +45,7 @@ def parse_queries(path):
             continue
         lines = b.split("\n")
         title = lines[0].lstrip("- ").strip()
-        sql = "\n".join(l for l in lines if not l.strip().startswith("--")).strip().rstrip(";")
+        sql = "\n".join(ln for ln in lines if not ln.strip().startswith("--")).strip().rstrip(";")
         out.append((title, sql))
     return out
 

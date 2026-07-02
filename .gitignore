@@ -13,5 +13,11 @@ __pycache__/
 venv/
 .ipynb_checkpoints/
 
+# dbt — never commit real credentials or build artifacts
+profiles.yml
+dbt_hospiq/target/
+dbt_hospiq/dbt_packages/
+dbt_hospiq/logs/
+
 # OS
 .DS_Store

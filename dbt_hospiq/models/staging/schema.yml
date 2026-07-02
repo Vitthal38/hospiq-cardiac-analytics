@@ -1,0 +1,25 @@
+version: 2
+
+sources:
+  - name: hospiq_raw
+    description: Raw cleaned admissions data loaded from the ETL pipeline.
+    schema: public
+    tables:
+      - name: hdhi_admission_cleaned
+
+models:
+  - name: stg_admissions
+    description: Standardised, one-row-per-admission staging model.
+    columns:
+      - name: mrd_no
+        description: Medical record number (patient identifier).
+        tests: [not_null]
+      - name: admission_date
+        description: Date of admission.
+        tests: [not_null]
+      - name: outcome
+        description: Admission disposition.
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Discharged', 'Expired', 'DAMA']

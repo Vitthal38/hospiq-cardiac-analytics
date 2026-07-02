@@ -1,0 +1,12 @@
+hospiq:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: YOUR_RDS_ENDPOINT
+      user: YOUR_DB_USER
+      password: YOUR_DB_PASSWORD
+      port: 5432
+      dbname: hospiq
+      schema: public
+      threads: 4

@@ -1,0 +1,42 @@
+version: 2
+
+models:
+  - name: fact_admissions
+    description: One row per admission, with foreign keys to dim_patient and dim_date.
+    columns:
+      - name: mrd_no
+        description: Patient foreign key.
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_patient')
+              field: mrd_no
+      - name: admission_date
+        tests: [not_null]
+      - name: outcome
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Discharged', 'Expired', 'DAMA']
+
+  - name: dim_patient
+    description: One row per patient (latest record per mrd_no).
+    columns:
+      - name: mrd_no
+        tests: [not_null, unique]
+      - name: locality
+        tests:
+          - accepted_values:
+              values: ['Rural', 'Urban']
+
+  - name: dim_date
+    description: One row per unique admission date.
+    columns:
+      - name: date_id
+        tests: [not_null, unique]
+
+  - name: mart_mortality_by_condition
+    description: Mortality rate per clinical condition.
+
+  - name: mart_rural_urban
+    description: Outcome KPIs by locality.

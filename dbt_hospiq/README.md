@@ -1,5 +1,21 @@
 # dbt_hospiq — HOSPIQ Transformation Layer
 
+## Integration Status
+
+> **Note:** This dbt project demonstrates the transformation layer pattern
+> (staging → marts, schema tests, lineage). The production pipeline currently
+> loads the star schema directly via Python/psycopg2
+> (`pipeline/03_load_postgres.py`).
+>
+> To run dbt against a live database:
+> 1. Ensure `hdhi_admission_cleaned` exists as a flat table in your PostgreSQL
+>    schema (load it before running `03_load_postgres.py`)
+> 2. Copy `profiles.yml.example` to `profiles.yml` and fill in your credentials
+> 3. `cd dbt_hospiq && dbt run && dbt test`
+>
+> The star schema models in `marts/` mirror the same logic as the Python
+> pipeline, allowing side-by-side comparison of the two approaches.
+
 A dbt project that rebuilds the HOSPIQ star schema as version-controlled, tested
 transformations on top of the loaded PostgreSQL warehouse.
 

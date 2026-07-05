@@ -213,7 +213,7 @@ Full exploration: [`analysis/eda_notebook.ipynb`](analysis/eda_notebook.ipynb) a
 | Power BI Desktop | — | 5-page dashboard, DAX, drill-through, custom tooltips |
 | Jupyter | — | Exploratory analysis |
 | scipy | 1.13 | Statistical tests (chi-square, ANOVA, Mann-Whitney) |
-| dbt | 1.8 | Star schema transforms, testing, lineage |
+| dbt | 1.8 | Transformation layer pattern demo — staging + marts + schema tests |
 | pytest / flake8 | — | Unit tests, CI hygiene |
 | GitHub Actions | — | CI pipeline |
 

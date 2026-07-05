@@ -9,19 +9,19 @@
 │                                                             │
 │  [Kaggle CSV]                                               │
 │       ↓                                                     │
-│  [python/01_upload_to_s3.py]                               │
+│  [pipeline/01_extract_load.py]                             │
 │       ↓                                                     │
-│  [AWS S3 — hospiq-cardiac-data-935140613339]               │
+│  [AWS S3 — hospiq-cardiac-data-<account-id>]               │
 │       raw/  ← 4 original files                             │
 │       processed/  ← cleaned CSV (3.34 MB)                  │
 │       ↓                                                     │
-│  [python/02_clean_transform.py]                            │
+│  [pipeline/02_clean_transform.py]                          │
 │       ↓ 15 cleaning steps                                  │
 │       ↓ 5 validation checks                                │
 │       ↓                                                     │
 │  [AWS S3 — processed/hdhi_admission_cleaned.csv]           │
 │       ↓                                                     │
-│  [python/03_load_to_rds.py]                                │
+│  [pipeline/03_load_postgres.py]                            │
 │       ↓ Star schema load                                    │
 │       ↓                                                     │
 │  [AWS RDS PostgreSQL 15 — hospiq-db]                       │
@@ -29,13 +29,15 @@
 │       dim_date       (730 rows)                            │
 │       fact_admissions (15,757 rows)                        │
 │       ↓                                                     │
-│  [sql/02_analysis_queries.sql — 10 business queries]       │
-│  [sql/03_views.sql — 3 analytical views]                   │
+│  [analysis/sql/queries.sql — 10 business queries]          │
+│  [analysis/sql/views.sql — 3 analytical views]             │
 │       ↓                                                     │
 │  [Power BI Desktop — direct RDS connection]                │
 │       Page 1: Clinical Overview                            │
 │       Page 2: Risk Intelligence                            │
-│       Page 3: Rural vs Urban Disparity                     │
+│       Page 3: Rural vs Urban                                │
+│       Page 4: Patient Cohort Detail (drill-through)         │
+│       Page 5: Condition Tooltip (custom tooltip)            │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -44,13 +46,13 @@
 
 | Resource | Name | Type | Region | Cost |
 |----------|------|------|--------|------|
-| S3 Bucket | hospiq-cardiac-data-935140613339 | Standard | ap-south-1 | ~$0.00/mo |
+| S3 Bucket | hospiq-cardiac-data-<account-id> | Standard | ap-south-1 | ~$0.00/mo |
 | RDS Instance | hospiq-db | db.t3.micro PostgreSQL 15 | ap-south-1 | Free tier |
 
 ## S3 Bucket Structure
 
 ```
-hospiq-cardiac-data-935140613339/
+hospiq-cardiac-data-<account-id>/
 ├── raw/
 │   ├── HDHI Admission data.csv     (2.48 MB — original dataset)
 │   ├── HDHI Mortality Data.csv     (10.1 KB)

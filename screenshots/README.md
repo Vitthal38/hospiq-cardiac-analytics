@@ -1,44 +1,37 @@
-# Screenshots — Proof of Work
+# Screenshots
 
-This folder contains visual proof for every completed phase.
+Dashboard screenshots from the HOSPIQ Power BI report (5 pages).
 
-## EDA Phase (Phase 1)
+## Dashboard Pages
+
+| File | Page | Description |
+|------|------|-------------|
+| 01_clinical_overview.png | Page 1 | Clinical Overview — KPI cards, monthly trend, outcomes by age group |
+| 02_risk_intelligence.png | Page 2 | Risk Intelligence — condition mortality ranking, risk-tier severity |
+| 03_rural_vs_urban.png | Page 3 | Rural vs Urban — 8 paired KPI cards, comparative charts |
+| 04_patient_cohort_detail.png | Page 4 | Patient Cohort Detail — drill-through destination |
+| 05_condition_tooltip.png | Page 5 | Condition Tooltip — custom tooltip with rank, volume, LOS, delta |
+
+## AWS Infrastructure Proof
+(located in [`docs/aws_proof/`](../docs/aws_proof/))
+
+| File | Shows |
+|------|-------|
+| s3_bucket_overview.png | S3 bucket root with raw/ and processed/ folders |
+| s3_processed_objects.png | processed/hdhi_admission_cleaned.csv (3.3MB) |
+| s3_raw_objects.png | raw/ folder with 4 source CSVs |
+
+## Pipeline & EDA Proof
+
 | File | Description |
 |------|-------------|
 | eda_01_null_analysis.png | Missing value distribution across all columns |
 | eda_02_outcome_distribution.png | Patient outcome split (Discharged/Expired/DAMA) |
 | eda_03_numeric_distributions.png | Age, LOS, and EF distributions with outlier flags |
-
-## Data Cleaning (Phase 2)
-| File | Description |
-|------|-------------|
-| phase2_cleaning_validation.png | All 7 validation assertions PASSED with actual values |
-
-## AWS Infrastructure (Phase 3)
-| File | Description |
-|------|-------------|
-| phase3_s3_bucket.png | S3 bucket contents — 5 files, 5.94 MB verified |
-
-## Database Loading (Phase 4)
-| File | Description |
-|------|-------------|
+| phase2_cleaning_validation.png | Cleaning validation assertions with actual values |
+| phase3_s3_bucket.png | S3 bucket contents verified |
 | phase4_database_verification.png | Row counts and FK integrity for all 3 tables |
-
-## SQL Analysis (Phase 5)
-| File | Description |
-|------|-------------|
 | phase5_sql_results.png | Summary of all 10 query findings with real numbers |
 
-## Architecture
-| File | Description |
-|------|-------------|
-| project_architecture_pipeline.png | End-to-end pipeline from CSV to Power BI |
-
-## Power BI Dashboard (Phase 6 — Added manually)
-| File | Description |
-|------|-------------|
-| dashboard_page1_clinical.png | Clinical Overview page |
-| dashboard_page2_risk.png | Risk Intelligence page |
-| dashboard_page3_rural_urban.png | Rural vs Urban Disparity page |
-
-_Power BI screenshots are added manually once the dashboard is built in Phase 6._
+> Dashboard was built in Power BI Desktop and published to GitHub Pages:
+> https://vitthal38.github.io/hospiq-cardiac-analytics

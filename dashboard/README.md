@@ -23,3 +23,26 @@ Condition Mortality Rank =
         [Condition Mortality], , DESC, DENSE
     )
 ```
+
+## Data Model Notes
+
+### Conditions Table
+The `Conditions` table used in the `Condition Mortality Rank` RANKX measure is a
+calculated table in Power BI that unpivots the six boolean condition flags from
+`hdhi_admission_cleaned` into a single column:
+
+```dax
+Conditions = UNION(
+    ROW("Condition", "Cardiogenic Shock"),
+    ROW("Condition", "STEMI"),
+    ROW("Condition", "AKI"),
+    ROW("Condition", "Atrial Fibrillation"),
+    ROW("Condition", "Heart Failure"),
+    ROW("Condition", "CKD")
+)
+```
+
+This table is joined to the fact table via a DAX measure that filters
+`hdhi_admission_cleaned` by each condition flag. It exists only in the Power BI
+data model and has no SQL equivalent — it is the source of the
+`Condition Mortality Rank` column on the Risk Intelligence page.

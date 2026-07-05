@@ -219,6 +219,8 @@ Full exploration: [`analysis/eda_notebook.ipynb`](analysis/eda_notebook.ipynb) a
 
 > RDS instance was deleted post-project to avoid billing. Console screenshots proving AWS usage are in [docs/aws_proof/](docs/aws_proof/). The cleaned CSV (`data/processed/`) remains as the live dashboard source.
 
+> **Design decision — load strategy:** a full reload strategy is used (DROP + recreate) for this static historical dataset. Production incremental loading would use an `ON CONFLICT` upsert pattern with surrogate keys instead.
+
 ## Repository Structure
 
 ```

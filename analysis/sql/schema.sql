@@ -4,6 +4,9 @@
 -- Star Schema: 2 dimension tables + 1 fact table
 -- ============================================================
 
+-- Full reload strategy: drop and recreate tables on every run. For incremental
+-- loading, replace DROP TABLE with an ON CONFLICT upsert pattern and remove
+-- the DROP statements.
 -- Drop in reverse FK order (fact first then dims)
 DROP TABLE IF EXISTS fact_admissions;
 DROP TABLE IF EXISTS dim_patient;
@@ -101,3 +104,8 @@ CREATE TABLE fact_admissions (
     risk_score                INTEGER,
     risk_category             VARCHAR(20)
 );
+
+-- Performance indexes for join operations
+-- (critical at production data volumes)
+CREATE INDEX IF NOT EXISTS idx_fact_mrd ON fact_admissions(mrd_no);
+CREATE INDEX IF NOT EXISTS idx_fact_date ON fact_admissions(admission_date);

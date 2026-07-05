@@ -4,7 +4,8 @@
 Loads data/processed/hdhi_admission_cleaned.csv (or the S3 copy) into:
   dim_patient (12,244) → dim_date (730) → fact_admissions (15,757)
 Ported from the tested backup loader: drop_duplicates for patients, date-attribute
-build, 0/1→bool conversion, NaT/NaN→None, batched ON CONFLICT DO NOTHING inserts.
+build, 0/1→bool conversion, NaT/NaN→None, batched inserts. Full reload strategy —
+schema is dropped and recreated on every run (see analysis/sql/schema.sql).
 ==================================================================================
 """
 
@@ -146,7 +147,7 @@ def main():
                         for r in dp.itertuples(index=False)]
         insert_batched(cur,
                        "INSERT INTO dim_patient (mrd_no, age, age_group, gender, locality) "
-                       "VALUES %s ON CONFLICT (mrd_no) DO NOTHING", patient_rows, 500)
+                       "VALUES %s", patient_rows, 500)
         conn.commit()
         cur.execute("SELECT COUNT(*) FROM dim_patient")
         n_patient = cur.fetchone()[0]
@@ -162,8 +163,7 @@ def main():
                               CAL_Q[d.month], FY_Q[d.month], SEASON[d.month], d.weekday() >= 5))
         insert_batched(cur,
                        "INSERT INTO dim_date (date_id, day_name, month_name, month_num, year, "
-                       "quarter, fiscal_quarter, season, is_weekend) VALUES %s "
-                       "ON CONFLICT (date_id) DO NOTHING", date_rows, 100)
+                       "quarter, fiscal_quarter, season, is_weekend) VALUES %s", date_rows, 100)
         conn.commit()
         cur.execute("SELECT COUNT(*) FROM dim_date")
         n_date = cur.fetchone()[0]
@@ -175,8 +175,7 @@ def main():
                      for r in df.itertuples(index=False)]
         cols = ", ".join(FACT_COLS)
         insert_batched(cur,
-                       f"INSERT INTO fact_admissions ({cols}) VALUES %s "
-                       f"ON CONFLICT (sno) DO NOTHING", fact_rows, 500)
+                       f"INSERT INTO fact_admissions ({cols}) VALUES %s", fact_rows, 500)
         conn.commit()
         cur.execute("SELECT COUNT(*) FROM fact_admissions")
         n_fact = cur.fetchone()[0]

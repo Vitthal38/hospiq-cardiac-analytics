@@ -254,7 +254,7 @@ hospiq-cardiac-analytics/
 ├── .github/workflows/            # CI: lint, data quality, pytest
 ├── dashboard/                    # Power BI notes (.pbix shared on request)
 ├── screenshots/                  # Dashboard + EDA + pipeline proof images
-├── docs/                         # Data dictionary, architecture, insights, cleaning log, interview prep
+├── docs/                         # Data dictionary, architecture, insights, cleaning log, SQL guide
 │   └── aws_proof/                # S3 console screenshots (AWS usage evidence)
 ├── index.html                    # GitHub Pages dashboard viewer
 ├── CHANGELOG.md

@@ -12,7 +12,7 @@
 - Critical Risk mortality: 8.66%
 - Severely Reduced EF mortality: 16.08%
 - Monsoon STEMI cases: 717 (highest season)
-- BNP missing: 53.57% (8,441 nulls)
+- BNP missing: 57.63% (9,081 total — 8,441 true nulls + 640 disguised "EMPTY" strings)
 - Mixed date format rows fixed: 3,489
 - EMPTY strings in lab columns: 840
 
@@ -29,14 +29,14 @@ Each admission is a valid clinical event, so all 15,757 rows stay in fact_admiss
 
 ## Data Cleaning Questions
 
-**Q4: BNP has 53.57% missing. How did you handle that and what are the limitations?**
-Filled with median (470.5). Could not drop — losing 8,441 rows would severely reduce dataset size. Limitation: BNP is excluded from correlation analysis. It is only used in the composite risk score where the missing value is replaced by median before calculation. The cleaning decision is documented in DATA_CLEANING_DECISIONS.md.
+**Q4: BNP has 57.63% missing. How did you handle that and what are the limitations?**
+Filled with median (470.5). Could not drop — losing 9,081 rows (8,441 true nulls plus 640 disguised "EMPTY" strings) would severely reduce dataset size. Limitation: BNP is excluded from correlation analysis. It is only used in the composite risk score where the missing value is replaced by median before calculation. The cleaning decision is documented in DATA_CLEANING_DECISIONS.md.
 
 **Q5: You mentioned the date column had mixed formats. What was the problem and how did you fix it?**
 D.O.A had two formats mixed: M/D/YYYY in early records and D/M/YYYY in later records. Using dayfirst=True alone failed on 3,767 rows. The fix: parse with the month_year column as reference. Extract month from month_year (e.g. Apr-17 = month 4). Try parsing D.O.A with dayfirst=False first. Where parsed month differs from reference month, try dayfirst=True instead. Result: 12,268 parsed simply, 3,489 needed the fallback, 0 failed. This would have corrupted LOS calculations for nearly the entire dataset if not caught in EDA.
 
 **Q6: You found 840 EMPTY strings in lab columns. Why is this a problem and how did you catch it?**
-pandas isnull() returns False for the string "EMPTY". It is not a null — it is a string that looks like missing data. Standard null analysis in EDA would miss it entirely. Caught it by converting each lab column with pd.to_numeric using errors='coerce', which converts non-numeric strings to NaN. Then treated as a regular null. Total affected: 840 values across 8 lab columns. BNP had the most (640 EMPTY strings + 7,801 true nulls = 8,441 total missing).
+pandas isnull() returns False for the string "EMPTY". It is not a null — it is a string that looks like missing data. Standard null analysis in EDA would miss it entirely. Caught it by converting each lab column with pd.to_numeric using errors='coerce', which converts non-numeric strings to NaN. Then treated as a regular null. Total affected: 840 EMPTY-string values across 8 lab columns, on top of the nulls isnull() already caught. BNP had the most (640 EMPTY strings + 8,441 true nulls = 9,081 total missing, 57.63%).
 
 ## SQL Questions
 
@@ -91,7 +91,7 @@ Direct connection means the dashboard reflects the current database state — if
 The mixed date format in D.O.A. Early records used M/D/YYYY and later ones D/M/YYYY. A simple dayfirst=True parse — which most analysts would use for Indian data — failed on 3,489 rows and would have corrupted LOS calculations for essentially the entire dataset. The fix required using the month_year column as a reference to disambiguate which format to apply. This is the kind of issue that only surfaces during thorough EDA — not during pipeline building.
 
 **Q19: This dataset only has 2 years of data from one hospital. What are the limitations?**
-Three key limitations. First: single-hospital data from a tertiary cardiac centre in Punjab — findings may not generalise to other regions or hospital types. Second: BNP is missing for 53.57% of patients, limiting its use as a predictive variable. Third: no socioeconomic data — rural vs urban differences in outcome could reflect access to care, transportation time, or income level, but the data cannot distinguish between these. Any analysis should be presented as hypothesis-generating, not conclusive.
+Three key limitations. First: single-hospital data from a tertiary cardiac centre in Punjab — findings may not generalise to other regions or hospital types. Second: BNP is missing for 57.63% of admissions, limiting its use as a predictive variable. Third: no socioeconomic data — rural vs urban differences in outcome could reflect access to care, transportation time, or income level, but the data cannot distinguish between these. Any analysis should be presented as hypothesis-generating, not conclusive.
 
 **Q20: If you had 6 more months, what would you add?**
 Three things in priority order. First: time-series analysis correlating STEMI rates with the pollution data already in the dataset (HDHI Pollution Data.csv is unused). Second: survival analysis using actual admission and discharge dates to calculate time-to-event, not just a binary expired/discharged outcome. Third: a patient readmission prediction model using the 3,513 repeat admissions as the training signal — the risk_score is a simple proxy, but a logistic regression on the full clinical feature set would be more robust.

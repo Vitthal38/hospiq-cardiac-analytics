@@ -16,7 +16,7 @@ _Phase 1 of 7 — Exploratory Data Analysis. All figures below are produced by `
 
 ## 2. Null Analysis
 
-Eight columns contain missing values. **BNP is the critical issue at 53.6% missing.**
+Eight columns contain missing values. **BNP is the critical issue** — 53.6% missing by a naive `isnull()` check, rising to **57.6% (9,081 rows)** once disguised `"EMPTY"` string values are included (see note below).
 
 | Column | Null Count | Null % | Severity |
 |---|---|---|---|
@@ -30,6 +30,8 @@ Eight columns contain missing values. **BNP is the critical issue at 53.6% missi
 | UREA | 241 | 1.53% | 🟡 Minor |
 
 > Note: lab columns also contain the literal string `EMPTY` as a missing marker (e.g. BNP has 7,316 non-null cells raw, but only 6,676 are numerically valid after coercion). These must be coerced to NaN before any numeric work. **Phase 2 confirmed 840 `EMPTY` strings across the 8 lab columns** (BNP 640, EF 94, GLUCOSE 82, PLATELETS 9, HB 4, TLC 4, CREATININE 4, UREA 3) — invisible to `isnull()`.
+>
+> **True total missing (isnull() nulls + EMPTY strings):** BNP 9,081 (57.6%), EF 1,599 (10.1%), GLUCOSE 945 (6.0%), PLATELETS 294 (1.9%), TLC 290 (1.8%), CREATININE 251 (1.6%), HB 256 (1.6%), UREA 244 (1.5%). The table above shows the `isnull()`-only view exactly as it appeared before this discovery — the numbers below use the corrected totals.
 
 Chart: `assets/screenshots/eda_01_null_analysis.png`
 
@@ -94,10 +96,10 @@ Chart: `assets/screenshots/eda_02_outcome_distribution.png`
 |---|---|---|---|---|---|
 | AGE | 4 | 110 | 61.4 | 62 | 0 |
 | DURATION OF STAY | 1 | 98 | 6.4 | 5 | 0 |
-| EF | 14 | 60 | — | — | 1,505 |
-| CREATININE | — | 15.63 | — | — | 247 |
-| GLUCOSE | — | 888 | — | — | 863 |
-| HB | 3.0 | 26.5 | — | — | 252 |
+| EF | 14 | 60 | — | — | 1,599 |
+| CREATININE | — | 15.63 | — | — | 251 |
+| GLUCOSE | — | 888 | — | — | 945 |
+| HB | 3.0 | 26.5 | — | — | 256 |
 
 **Outlier flags raised**
 
@@ -133,7 +135,7 @@ Parsing `D.O.A` / `D.O.D` with `dayfirst=True` (the assumed Indian DD/MM/YYYY co
 
 BNP (Brain Natriuretic Peptide) is a cardiac-stress marker and the dataset's worst quality issue.
 
-- **Missing rate:** 53.6% (8,441 of 15,757).
+- **Missing rate:** 57.6% (9,081 of 15,757 — 8,441 true nulls + 640 disguised "EMPTY" strings).
 - **Where present:** ~6,676 numerically valid values; median **470.5**, mean **817.8** (right-skewed by extremes up to 5,000), max 5,000.
 - **Missingness is not random:** presence varies by outcome and admission type (BNP is ordered selectively, typically for suspected heart failure), so the missingness is *informative*, not purely random.
 - **Decision:** fill with **median (470.5)** for risk-scoring purposes only.
@@ -142,7 +144,7 @@ BNP (Brain Natriuretic Peptide) is a cardiac-stress marker and the dataset's wor
 ## 8. Key Findings
 
 1. **Outcome imbalance** — 87.30% discharged, 7.01% expired (1,105), 5.69% DAMA (896). 12.7% of admissions had an unfavourable outcome.
-2. **The BNP problem** — 53.6% missing (8,441). Usable for median-filled risk scoring only; excluded from correlation work.
+2. **The BNP problem** — 57.6% missing (9,081, including 640 disguised "EMPTY" strings). Usable for median-filled risk scoring only; excluded from correlation work.
 3. **Repeat admissions are real** — 12,244 unique patients produced 15,757 admissions (3,513 repeats; one patient admitted 17 times). Keep all rows; do not deduplicate.
 4. **Age outliers are clinically valid** — 34 patients under 15 and 2 over 100. Range 4–110. Keep and flag, don't remove.
 5. **Length-of-stay tail** — max 98 days; only 2 records exceed 60. Keep all; cap charts at 30 days for readability.
@@ -153,8 +155,8 @@ BNP (Brain Natriuretic Peptide) is a cardiac-stress marker and the dataset's wor
 
 | Issue | Recommended Action | Reason |
 |---|---|---|
-| BNP 53.6% missing | Median-fill; exclude from correlation | Too many rows to drop; missing-not-at-random |
-| EF 9.5% missing | Median-fill | Clinically important, moderate missingness |
+| BNP 57.6% missing | Median-fill; exclude from correlation | Too many rows to drop; missing-not-at-random |
+| EF 10.1% missing | Median-fill | Clinically important, moderate missingness |
 | Other labs (<6% missing) | Median-fill per column | Low missingness, preserves row count |
 | `D.O.A` mixed date format | Disambiguate via `month year` column | `dayfirst=True` fails on 3,767 rows |
 | AGE / LOS / CREAT outliers | Keep, flag | Clinically plausible extremes |

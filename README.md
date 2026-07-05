@@ -142,7 +142,7 @@ Raw hospital exports are messy in ways that silently corrupt analysis; each fix 
 
 - **Mixed date formats** — the admission-date column mixed `M/D/YYYY` (early records) and `D/M/YYYY` (later records). A naïve day-first parse failed on 3,767 rows; disambiguating against the `month year` reference recovered **3,489 rows with zero failures**, preventing near-total corruption of length-of-stay calculations.
 - **Disguised missing values** — lab columns contained the literal string `"EMPTY"` (**840 occurrences** across 8 columns) that standard null checks miss. These were coerced to true nulls before imputation.
-- **Clinically-aware imputation** — BNP (53.57% missing), ejection fraction (9.55%) and other labs were median-filled (never zero-filled, which would be clinically false); BNP is flagged as unsuitable for correlation given its missingness.
+- **Clinically-aware imputation** — BNP (57.63% missing, 9,081 of 15,757 including 840 disguised "EMPTY" strings), ejection fraction (10.15%, 1,599) and other labs were median-filled (never zero-filled, which would be clinically false); BNP is flagged as unsuitable for correlation given its missingness.
 - **Standardisation & feature engineering** — coded values mapped to readable labels (R/U → Rural/Urban, E/O → Emergency/OPD), and `age_group`, `season`, `risk_score`, and `risk_category` were engineered.
 
 Rationale for every decision: [`docs/DATA_CLEANING_DECISIONS.md`](docs/DATA_CLEANING_DECISIONS.md).

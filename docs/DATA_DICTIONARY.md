@@ -33,9 +33,9 @@ Kaggle: https://www.kaggle.com/datasets/ashishsahani/hospital-admissions-data
 | GLUCOSE | glucose | Numeric | Blood glucose (mg/dL) | varies |
 | UREA | urea | Numeric | Blood urea (mg/dL) | varies |
 | CREATININE | creatinine | Numeric | Serum creatinine (mg/dL) | varies |
-| BNP | bnp | Numeric | Brain Natriuretic Peptide — cardiac stress marker | 53.6% missing |
+| BNP | bnp | Numeric | Brain Natriuretic Peptide — cardiac stress marker | 57.6% missing (incl. "EMPTY" strings) |
 | RAISED CARDIAC ENZYMES | raised_cardiac_enzymes | Boolean | Elevated troponin/CK-MB | 0 / 1 |
-| EF | ef | Numeric | Ejection Fraction % — heart pump efficiency | 5 to 85 — 9.5% missing |
+| EF | ef | Numeric | Ejection Fraction % — heart pump efficiency | 5 to 85 — 10.1% missing (incl. "EMPTY" strings) |
 | STEMI | stemi | Boolean | ST-Elevation Myocardial Infarction | 0 / 1 |
 | HEART FAILURE | heart_failure | Boolean | Heart failure diagnosis | 0 / 1 |
 | HFREF | hfref | Boolean | Heart Failure with Reduced EF | 0 / 1 |
@@ -54,13 +54,17 @@ Kaggle: https://www.kaggle.com/datasets/ashishsahani/hospital-admissions-data
 | risk_category | Risk band | Low/Moderate/High/Critical |
 
 ## Null Summary
-| Column | Null Count | Null % | Action |
+Counts below are **total missing** — true `NaN` nulls plus the literal string
+`"EMPTY"` (which `pandas.isnull()` does not catch; see `DATA_CLEANING_DECISIONS.md`,
+Decisions 3–5). This is the number actually median-filled by the pipeline.
+
+| Column | Total Missing | Missing % | Action |
 |--------|-----------|--------|--------|
-| BNP | 8,441 | 53.6% | Fill with median |
-| EF | 1,505 | 9.5% | Fill with median |
-| GLUCOSE | 863 | 5.5% | Fill with median |
-| TLC | 286 | 1.8% | Fill with median |
-| PLATELETS | 285 | 1.8% | Fill with median |
-| CREATININE | 247 | 1.6% | Fill with median |
-| UREA | 241 | 1.5% | Fill with median |
-| HB | 252 | 1.6% | Fill with median |
+| BNP | 9,081 | 57.6% | Fill with median |
+| EF | 1,599 | 10.1% | Fill with median |
+| GLUCOSE | 945 | 6.0% | Fill with median |
+| PLATELETS | 294 | 1.9% | Fill with median |
+| TLC | 290 | 1.8% | Fill with median |
+| CREATININE | 251 | 1.6% | Fill with median |
+| HB | 256 | 1.6% | Fill with median |
+| UREA | 244 | 1.5% | Fill with median |

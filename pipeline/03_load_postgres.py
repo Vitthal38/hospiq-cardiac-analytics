@@ -1,5 +1,5 @@
 """
-03_load_to_rds.py — Phase 4: Load cleaned data into the RDS star schema
+03_load_postgres.py — Phase 4: Load cleaned data into the RDS star schema
 ==================================================================================
 Loads data/processed/hdhi_admission_cleaned.csv (or the S3 copy) into:
   dim_patient (12,244) → dim_date (730) → fact_admissions (15,757)

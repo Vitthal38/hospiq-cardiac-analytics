@@ -1,5 +1,5 @@
 """
-01_upload_to_s3.py — Phase 3: Upload raw data to the S3 data lake
+01_extract_load.py — Phase 3: Upload raw data to the S3 data lake
 ==================================================================================
 Uploads the 4 original Kaggle CSV files from data/raw/ to the S3 raw/ prefix,
 then lists the bucket to verify. Raw files are never modified after upload.

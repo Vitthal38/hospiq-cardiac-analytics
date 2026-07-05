@@ -11,7 +11,7 @@ Key issues handled (identified in Phase 1 EDA):
 
 Input  : s3://<S3_BUCKET>/raw/HDHI Admission data.csv  (fallback: data/raw/)
 Output : data/processed/hdhi_admission_cleaned.csv  (+ S3 processed/ if available)
-Next   : 03_load_to_rds.py
+Next   : 03_load_postgres.py
 ==================================================================================
 """
 

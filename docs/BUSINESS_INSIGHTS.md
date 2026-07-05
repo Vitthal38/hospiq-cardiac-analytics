@@ -21,7 +21,7 @@ _All numbers below are live query output from `sql/02_analysis_queries.sql` run 
 | Rural | 3758 | 6.4 | 285 | 7.58 | 553 | 43.0 |
 | Urban | 11999 | 6.4 | 820 | 6.83 | 1649 | 43.4 |
 
-**Insight:** Rural patients die at a higher rate (7.58% vs 6.83%) despite identical length of stay and ejection fraction — pointing to access/time-to-care gaps rather than disease severity on arrival.
+**Insight:** Rural patients show a higher raw mortality rate (7.58% vs 6.83%) with identical length of stay and ejection fraction — but this gap is not statistically significant (chi² test, p=0.15; see [`analysis/statistical_findings.md`](../analysis/statistical_findings.md)). Treat as a monitoring signal, not a confirmed access-disparity finding.
 
 ## Q3: Age Group Risk
 | age_group | patients | avg_los | deaths | mortality_pct | avg_ef |

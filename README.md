@@ -159,7 +159,7 @@ Full exploration: [`analysis/eda_notebook.ipynb`](analysis/eda_notebook.ipynb) a
 ## Key Business Insights
 
 - **Cardiogenic shock is the dominant killer** — 47.56% mortality, nearly **3× the next most severe condition (AKI, 16.21%)**.
-- **A rural–urban equity gap exists** — rural patients die at **7.55%** vs **6.85%** urban, *despite* arriving via emergency less often (67.69% vs 69.83%), pointing to structural access disparity rather than acuity.
+- **Rural patients show a modestly higher raw mortality rate** (7.55% vs 6.85% urban) despite arriving via emergency less often — but chi-square testing shows this gap is **NOT statistically significant** (p = 0.15, Cramér's V = 0.011), so it should be treated as a hypothesis worth operational review, not a confirmed structural finding. See [`analysis/statistical_findings.md`](analysis/statistical_findings.md).
 - **Risk is non-linear** — patients at **risk score 4–5 show a sharp mortality spike** that flat, additive risk models would systematically underestimate.
 - **Emergency concentration** — **69.33%** of admissions arrive via the emergency route, concentrating clinical risk and staffing pressure in that pathway.
 - **Demographic burden** — the **61–80 cohort** drives the largest share of volume, defining where capacity and monitoring investment should focus.

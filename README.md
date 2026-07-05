@@ -178,7 +178,7 @@ Full exploration: [`analysis/eda_notebook.ipynb`](analysis/eda_notebook.ipynb) a
 ## Dashboard Overview
 
 - **1 · Clinical Overview** — the executive scorecard: five headline KPI cards (Total Admissions 15,757, Mortality 7.01%, STEMI 2,202, Emergency Rate 69.33%, Avg LOS 6.42), a monthly admissions trend with an average reference line, outcomes by age group, and an Emergency-vs-OPD donut.
-- **2 · Risk Intelligence** — condition- and tier-level mortality: cardiogenic shock (47.56%), CKD-only (20%), Critical-risk (8.66%) and diabetes (5.75%) cards, a severity-gradient mortality-by-risk-tier bar, mortality by clinical condition with cardiogenic shock flagged as the outlier, and a mortality-by-risk-score trend that exposes the non-linear spike.
+- **2 · Risk Intelligence** — condition- and tier-level mortality: cardiogenic shock (47.56%), CKD-only (21.6%), Critical-risk (8.66%) and diabetes (5.75%) cards, a severity-gradient mortality-by-risk-tier bar, mortality by clinical condition with cardiogenic shock flagged as the outlier, and a mortality-by-risk-score trend that exposes the non-linear spike.
 - **3 · Rural vs Urban** — an equity view: eight paired cards comparing mortality, DAMA, LOS and emergency rate across localities, plus three comparative charts making the 7.55% vs 6.85% gap explicit.
 - **4 · Patient Cohort Detail** — a drill-through destination (right-click any risk-tier bar) that lists patient-level records for the selected cohort, letting clinicians move from aggregate to individual.
 - **5 · Condition Tooltip** — a custom report-page tooltip that surfaces a condition's mortality rank, volume, average LOS, and delta vs the cohort average on hover.

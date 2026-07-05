@@ -231,18 +231,26 @@ hospiq-cardiac-analytics/
 │   ├── 02_clean_transform.py     # Clean + feature-engineer → processed CSV
 │   ├── 03_load_postgres.py       # Load star schema into PostgreSQL
 │   ├── 04_sql_runner.py          # Run the 10 analytical queries
+│   ├── data_quality_checks.py    # 15-point data quality assertion suite
 │   └── test_rds_connection.py    # RDS connectivity check
 ├── analysis/
 │   ├── eda_notebook.ipynb        # Exploratory data analysis
 │   ├── eda_charts.py             # Standalone EDA chart generator
+│   ├── run_statistics.py         # Statistical significance analysis (scipy)
+│   ├── statistical_findings.md   # chi-square, ANOVA, correlation, Mann-Whitney results
 │   └── sql/
 │       ├── schema.sql            # Star-schema DDL
 │       ├── queries.sql           # 10 analytical queries
 │       └── views.sql             # 3 Power BI views
+├── dbt_hospiq/                   # dbt transformation-layer pattern demo (staging + marts)
+├── tests/                        # pytest wrappers around data quality checks
+├── .github/workflows/            # CI: lint, data quality, pytest
 ├── dashboard/                    # Power BI notes (.pbix shared on request)
 ├── screenshots/                  # Dashboard + EDA + pipeline proof images
 ├── docs/                         # Data dictionary, architecture, insights, cleaning log, interview prep
-├── PLAN.md
+│   └── aws_proof/                # S3 console screenshots (AWS usage evidence)
+├── index.html                    # GitHub Pages dashboard viewer
+├── CHANGELOG.md
 ├── requirements.txt
 ├── .gitignore
 └── LICENSE

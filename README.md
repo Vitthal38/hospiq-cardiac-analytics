@@ -2,7 +2,7 @@
 
 > **An end-to-end healthcare analytics pipeline turning 15,757 real cardiac admissions into board-level clinical intelligence.**
 >
-> 📊 [Live Dashboard — Power BI Service](YOUR_POWERBI_LINK_HERE) · ✅ 15/15 data quality checks passing
+> 📊 [Live Dashboard](https://vitthal38.github.io/hospiq-cardiac-analytics) · ✅ 15/15 data quality checks passing
 > · 📐 [Architecture](docs/architecture_diagram.png) · 📊 [Statistical Analysis](analysis/statistical_findings.md)
 
 ![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)

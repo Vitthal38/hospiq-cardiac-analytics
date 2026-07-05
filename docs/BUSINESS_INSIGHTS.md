@@ -106,6 +106,19 @@ Admissions are **clearly growing**. FY2018-19 beats FY2017-18 in most months —
 ## Most Significant Finding
 **Chronic kidney disease — not diabetes — is the deadliest companion to heart disease at this hospital.** Patients presenting with **hypertension + CKD died at 47.2%**, nearly **7× the 7.01% hospital average**, and CKD appears in *every one* of the ten deadliest comorbidity combinations. Meanwhile diabetes alone — the condition most associated with cardiac risk in the public mind — sat at just 9.1%, barely above the 8.8% baseline for patients with none of these conditions. The data quietly rewrites which risk factor a cardiac ward should fear most: the cardio-renal patient.
 
+## Recommendations
+
+1. **Stand up a cardiogenic-shock rapid-response protocol.** At 47.56% mortality it is the highest-yield target; even modest improvement moves the hospital-wide rate.
+   *Quantified impact: Cardiogenic shock accounts for 944 of 15,757 admissions (6.0%) but ~449 of the 1,105 hospital deaths (47.56% mortality) — roughly 41% of all deaths concentrated in under 6% of admissions.*
+2. **Operationalise the risk score at admission**, with escalation triggers at score 4–5 where the non-linear mortality spike occurs.
+   *Quantified impact: The High + Critical risk tiers cover 38.1% of admissions but account for 47% of deaths — escalation protocols aimed at this group would reach nearly half of all mortality while monitoring just over a third of patients.*
+3. **Prioritise the cardio-renal patient.** CKD is the dominant comorbidity multiplier — flag CKD + hypertension arrivals for intensified monitoring.
+   *Quantified impact: CKD patients (~1,500 admissions) die at ~20% (~300 deaths) — roughly 2.9x the 7.01% hospital-wide mortality rate — making CKD flagging one of the highest-yield single-condition interventions available.*
+4. **Align staffing to the emergency-heavy, seasonally-peaked demand.**
+   *Quantified impact: HFrEF patients make up 2,428 admissions (~15.4% of the 15,757 total) with 20.8% mortality (~505 deaths, ~46% of all hospital deaths) — a large, high-risk cohort whose care demands should shape capacity and staffing decisions alongside raw emergency-route volume.*
+5. **Launch a rural-outcomes review** to investigate the mortality gap between localities — e.g. referral fast-tracking and tele-triage.
+   *Quantified impact: Rural mortality runs 0.70 percentage points above urban (hypothesis — p=0.15, not confirmed) — a gap worth a targeted operational review, not yet a validated structural finding.*
+
 ## Interview Talking Points
 Five numbers a candidate must know:
 1. **15,757 admissions, 7.01% in-hospital mortality** (1,105 deaths) — the headline scorecard (Q1).

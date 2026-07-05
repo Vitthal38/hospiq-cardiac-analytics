@@ -186,10 +186,15 @@ Full exploration: [`analysis/eda_notebook.ipynb`](analysis/eda_notebook.ipynb) a
 ## Recommendations
 
 1. **Stand up a cardiogenic-shock rapid-response protocol.** At 47.56% mortality it is the highest-yield target; even modest improvement moves the hospital-wide rate.
+   *Quantified impact: Cardiogenic shock accounts for 944 of 15,757 admissions (6.0%) but ~449 of the 1,105 hospital deaths (47.56% mortality) — roughly 41% of all deaths concentrated in under 6% of admissions.*
 2. **Operationalise the risk score at admission**, with escalation triggers at score 4–5 where the non-linear mortality spike occurs.
+   *Quantified impact: The High + Critical risk tiers cover 38.1% of admissions but account for 47% of deaths — escalation protocols aimed at this group would reach nearly half of all mortality while monitoring just over a third of patients.*
 3. **Prioritise the cardio-renal patient.** CKD is the dominant comorbidity multiplier — flag CKD + hypertension arrivals for intensified monitoring.
+   *Quantified impact: CKD patients (~1,500 admissions) die at ~20% (~300 deaths) — roughly 2.9x the 7.01% hospital-wide mortality rate — making CKD flagging one of the highest-yield single-condition interventions available.*
 4. **Align staffing to the emergency-heavy, seasonally-peaked demand** (69.33% emergency) so surge periods are covered proactively.
+   *Quantified impact: HFrEF patients make up 2,428 admissions (~15.4% of the 15,757 total) with 20.8% mortality (~505 deaths, ~46% of all hospital deaths) — a large, high-risk cohort whose care demands should shape capacity and staffing decisions alongside raw emergency-route volume.*
 5. **Launch a rural-outcomes review** to investigate the access-driven mortality gap (7.55% vs 6.85%) — e.g. referral fast-tracking and tele-triage.
+   *Quantified impact: Rural mortality runs 0.70 percentage points above urban (hypothesis — p=0.15, not confirmed) — a gap worth a targeted operational review, not yet a validated structural finding.*
 
 ## Business Impact
 

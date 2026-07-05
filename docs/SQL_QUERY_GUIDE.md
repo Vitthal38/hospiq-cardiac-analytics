@@ -7,7 +7,7 @@ SQL (Structured Query Language) is the language used to ask questions of data st
 
 ### Q1: Hospital Overall Scorecard
 **What we asked:** What are the headline numbers for this hospital?
-**What we found:** 15,757 admissions from 12,244 unique patients; 1,105 deaths (7.01% mortality); 896 DAMA; average stay 6.4 days; 2,202 STEMI; 4,561 heart-failure cases; 944 cardiogenic-shock cases.
+**What we found:** 15,757 admissions from 12,244 unique patients; 1,105 deaths (7.01% mortality); 896 DAMA; average stay 6.42 days; 2,202 STEMI; 4,561 heart-failure cases; 944 cardiogenic-shock cases.
 **Why it matters:** This is the single-slide summary a hospital director needs — overall scale, mortality, and the burden of the most serious conditions, all in one row.
 
 ### Q2: Rural vs Urban Outcomes
@@ -52,7 +52,7 @@ SQL (Structured Query Language) is the language used to ask questions of data st
 
 ### Q10: How Long Do Patients Stay?
 **What we asked:** What does a typical cardiac hospital stay look like?
-**What we found:** Median 5 days; 75th percentile 8 days; 90th percentile 12 days; 95th percentile 15 days; maximum 98 days (mean 6.4).
+**What we found:** Median 5 days; 75th percentile 8 days; 90th percentile 12 days; 95th percentile 15 days; maximum 98 days (mean 6.42).
 **Why it matters:** Most stays are short, but a small tail of very long stays consumes disproportionate bed capacity — essential for bed-planning and cost forecasting.
 
 ## Three SQL Techniques Worth Understanding
@@ -64,4 +64,4 @@ A CTE ("Common Table Expression") lets you break a complex question into clear, 
 A window function compares each row to *other related rows* without collapsing the table. For the year-over-year trend, it let us place each month's admissions right next to the same month from the previous year — so "January 2019: 870" sits beside "January 2018: 773," and we can show the +97 change. It's the database equivalent of looking left to last year while reading across the calendar.
 
 ### Percentiles (used in Q10)
-A percentile tells you the value below which a given share of patients fall — the median (50th percentile) is the "typical" stay. We prefer the median over the average for length of stay because a handful of 98-day admissions drag the average upward and make a typical stay look longer than it is. The median (5 days) honestly represents the middle patient; the average (6.4 days) is pulled up by the long tail. Showing both, plus the 90th/95th percentiles, gives the full picture.
+A percentile tells you the value below which a given share of patients fall — the median (50th percentile) is the "typical" stay. We prefer the median over the average for length of stay because a handful of 98-day admissions drag the average upward and make a typical stay look longer than it is. The median (5 days) honestly represents the middle patient; the average (6.42 days) is pulled up by the long tail. Showing both, plus the 90th/95th percentiles, gives the full picture.

@@ -215,7 +215,8 @@ Full exploration: [`analysis/eda_notebook.ipynb`](analysis/eda_notebook.ipynb) a
 | AWS S3 | — | Raw + processed data lake |
 | AWS Infrastructure proof | — | [docs/aws_proof/](docs/aws_proof/) |
 | AWS RDS (PostgreSQL) | 15 | Star-schema warehouse (deleted post-project → $0 billing) |
-| Power BI Desktop | — | 5-page dashboard, DAX, drill-through, custom tooltips |
+| Power BI Desktop | — | 5-page dashboard, DAX, drill-through, custom tooltips (static screenshots — `.pbix` available on request) |
+| Chart.js + PapaParse | 4.4 / 5.4 | Live client-side dashboard — parses the cleaned CSV and renders real, filterable charts directly in the browser, no server or build step |
 | Jupyter | — | Exploratory analysis |
 | scipy | 1.13 | Statistical tests (chi-square, ANOVA, Mann-Whitney) |
 | dbt | 1.8 | Transformation layer pattern demo — staging + marts + schema tests |
@@ -255,8 +256,10 @@ hospiq-cardiac-analytics/
 ├── dashboard/                    # Power BI notes (.pbix shared on request)
 ├── screenshots/                  # Dashboard + EDA + pipeline proof images
 ├── docs/                         # Data dictionary, architecture, insights, cleaning log, SQL guide
-│   └── aws_proof/                # S3 console screenshots (AWS usage evidence)
-├── index.html                    # GitHub Pages dashboard viewer
+│   ├── aws_proof/                # S3 console screenshots (AWS usage evidence)
+│   ├── dashboard_screenshots.html # Power BI Desktop report (static screenshots)
+│   └── POWERBI_FIXLIST.md        # Manual fix steps for pages 4-5 (.pbix not editable here)
+├── index.html                    # Live interactive dashboard (Chart.js + PapaParse, client-side CSV)
 ├── CHANGELOG.md
 ├── requirements.txt
 ├── .gitignore
@@ -288,6 +291,10 @@ python pipeline/04_sql_runner.py        # run the 10 analytical queries
 ```
 
 ## Dashboard Screenshots
+
+> Power BI Desktop report (static screenshots below; `.pbix` available on request). For an
+> actual live, filterable dashboard running client-side against the real dataset, see the
+> [Live Dashboard](https://vitthal38.github.io/hospiq-cardiac-analytics) instead.
 
 ### 1 — Clinical Overview
 ![Clinical Overview](screenshots/01_clinical_overview.png)
